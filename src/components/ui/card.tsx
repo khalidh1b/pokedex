@@ -1,15 +1,18 @@
 import { Pokebol } from '@/components/ui/pokebol';
 import { getColorType } from '@/utils/getColorType';
+import { getBgColorType } from '@/utils/getBgColorType';
+import { capitalizedText } from '@/utils/capitalizedText';
 
 export const Card = ({ img, name, rank, types }) => {
+    console.log(types[0])
     return (
-        <div className="bg-[#1EBA11] mt-24 h-72  relative rounded-lg">
+        <div className={`${getBgColorType(types[0]?.type.name)} bg-[#1EBA11] mt-24 h-72  relative rounded-lg`}>
             <img 
                 src={img} 
                 className='w-60 ml-10 absolute -top-28' alt="#" 
             />
             <div className='absolute top-40 pl-9'>
-                <h3 className='text-white text-2xl font-semibold'>{name}</h3>
+                <h3 className='text-white text-2xl font-semibold'>{capitalizedText(name)}</h3>
                 <p className='text-white'>#{rank}</p>
                 <div className="flex pt-2 gap-1 text-[#212121] font-medium">
                     {types.map((t, index) => (
