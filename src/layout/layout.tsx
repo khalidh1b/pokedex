@@ -1,7 +1,9 @@
+import { Header } from "@/components/header/header";
+
 export const Layout = () => {
     return (
         <div>
-            <h1>Layout</h1>
+            <Header/>
         </div>
     )
 };
