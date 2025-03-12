@@ -7,7 +7,7 @@ export const Header = () => {
     return (
         <header>
             <PokedexLogo/>
-            <div className='relative mt-7'>
+            <div className='relative mt-7 mb-20'>
                 <form onSubmit={() => {}}>
                     <Search className='absolute left-3 top-2.5 text-[#416EDF]'/>
                     <Input

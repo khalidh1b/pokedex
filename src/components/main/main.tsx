@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
 import { useEffect } from 'react';
+import { CardSkeleton } from '@/components/ui/card-skeleton';
 
 export const Main = () => {
 
@@ -14,8 +15,13 @@ export const Main = () => {
     console.log(loading)
 
     return (
-        <div className='grid grid-cols-4 gap-6 mt-24'>
-            {
+        <div className='grid grid-cols-4 gap-6 '>
+                
+            {loading && Array.from({ length: 12 }).map((_, idx) => (
+                <CardSkeleton/>
+            ))}
+            
+            {   
                 pokemons.map((pokemon) => (
                     <Card 
                         key={pokemon.id} 
