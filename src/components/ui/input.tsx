@@ -4,7 +4,7 @@ interface InputProps {
     type: string,
     className: string,
     placeholder: string,
-    onchange?: () => void,
+    onchange?: (e: any) => void,
     style?: object
 };
 

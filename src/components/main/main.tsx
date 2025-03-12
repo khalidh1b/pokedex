@@ -11,14 +11,14 @@ export const Main = () => {
         fetchPokemon()
     }, [])
 
-    console.log(pokemons)
-    console.log(loading)
+    console.log(pokemons);
+    console.log(loading);
 
     return (
         <div className='grid grid-cols-4 gap-6 '>
                 
             {loading && Array.from({ length: 12 }).map((_, idx) => (
-                <CardSkeleton/>
+                <CardSkeleton key={idx}/>
             ))}
             
             {   
