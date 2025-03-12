@@ -1,4 +1,5 @@
 import { Pokebol } from '@/components/ui/pokebol';
+import { getColorType } from '@/utils/getColorType';
 
 export const Card = ({ img, name, rank, types }) => {
     return (
@@ -12,7 +13,7 @@ export const Card = ({ img, name, rank, types }) => {
                 <p className='text-white'>#{rank}</p>
                 <div className="flex pt-2 gap-1 text-[#212121] font-medium">
                     {types.map((t, index) => (
-                        <span key={index} className="bg-[#6EE464] py-0.5 px-3 rounded-3xl">{t.type.name}</span>
+                        <span key={index} className={`${getColorType(t.type.name)} py-0.5 px-3 rounded-3xl`}>{t.type.name}</span>
                     ))}
                 </div>
             </div>
