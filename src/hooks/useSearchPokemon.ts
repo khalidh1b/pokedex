@@ -11,10 +11,13 @@ export const useSearchPokemon = () => {
 
             console.log('setsearching', searching, query)
 
-            const localFiltered = pokemons.filter((pokemon) => (
-                pokemon?.name?.toLowerCase().includes(query?.toLowerCase()) ||
-                pokemon[0]?.name?.toLowerCase().includes(query?.toLowerCase()) 
-            ));
+            const localFiltered = pokemons.filter((pokemon) => {
+                if (Array.isArray(pokemon)) {
+                    return pokemon[0]?.name?.toLowerCase().includes(query?.toLowerCase());
+                };
+                
+                return pokemon?.name?.toLowerCase().includes(query?.toLowerCase());
+            });
     
             const apiSearch = await searchPokemonApi(query);
     
@@ -24,9 +27,10 @@ export const useSearchPokemon = () => {
             setPokemon([...combinedSearchResults]);
 
         } catch (error) {
-            if(error instanceof Error)
-            console.log(error);
-            toast.error(error.message || 'An unknown error occured');
+            if(error instanceof Error) {
+                console.log(error);
+                toast.error(error.message || 'An unknown error occured');
+            }
         } finally {
             setSearching(false);
         }
