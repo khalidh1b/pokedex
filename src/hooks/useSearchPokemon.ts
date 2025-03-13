@@ -1,31 +1,42 @@
-import { useState } from "react";
-// import useFetchPokemon from "./useFetchPokemon";
+import { useEffect, useState } from "react";
 import { toast } from 'react-hot-toast';
 import { usePokemonContext } from "@/context/pokemonContext";
 
 export const useSearchPokemon = () => {
     const [searching, setSearching] = useState(false);
-    // const [fetchPokemon, pokemons, loading, setPokemon] = useFetchPokemon();
-    const { fetchPokemon, pokemons, loading, setPokemon } = usePokemonContext();
+    const { pokemons, setPokemon, setImgLoaded } = usePokemonContext();
 
     const handleSearch = async (query: string) => {
-        setSearching(true);
-        
-        const localFiltered = pokemons.filter((pokemon) => (
-            pokemon.name.toLowerCase().includes(query.toLowerCase())
-        ));
+        try {
+            setImgLoaded(false);
+            setSearching(true);
 
-        const apiSearch = await searchPokemonApi(query);
+            console.log('setsearching', searching)
 
-        const combinedSearchResults = [...localFiltered, ...apiSearch || []];
+            const localFiltered = pokemons.filter((pokemon) => (
+                pokemon.name.toLowerCase().includes(query.toLowerCase())
+            ));
+    
+            const apiSearch = await searchPokemonApi(query);
+    
+            const combinedSearchResults = [...localFiltered, ...apiSearch || []];
+    
+            console.log('combinedSearchResults', combinedSearchResults);
+            setPokemon([...combinedSearchResults]);
 
-        console.log('combinedSearchResults', combinedSearchResults);
-        setPokemon([...combinedSearchResults]);
-        // setSearchedPokemons(combinedSearchResults);
-        setSearching(false);
+        } catch (error) {
+            if(error instanceof Error)
+            toast.error(error.message || 'An unknown error occured');
+        } finally {
+            setSearching(false);
+        }
     };
 
-    return { handleSearch };
+    useEffect(() => {
+        setSearching(true);
+    }, [searching]);
+
+    return { handleSearch, searching };
 };
 
 
@@ -37,7 +48,9 @@ const searchPokemonApi = async (query: string) => {
         if(res.ok) {
             const data = await res.json();
             return [data];
-        };
+        } else {
+            toast.error('pokemon not found');
+        }
     } catch (error) {
         console.log("Error during API search:", error);
         toast.error('Error during API search, please try again!')
