@@ -16,7 +16,7 @@ Pokedex is a web application that allows users to search, filter, and explore Po
 
 ⚡ Optimized performance with efficient state management
 
-🌙 Dark mode support (if applicable)
+🌙 Dark mode support
 
 ## 🛠️ Tech Stack
 
