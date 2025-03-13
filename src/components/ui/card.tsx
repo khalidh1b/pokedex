@@ -2,13 +2,23 @@ import { Pokebol } from '@/components/ui/pokebol';
 import { getColorType } from '@/utils/getColorType';
 import { getBgColorType } from '@/utils/getBgColorType';
 import { capitalizedText } from '@/utils/capitalizedText';
+import React from 'react';
 
-export const Card = ({ img, name, rank, types }) => {
+interface CardProps {
+    img: string;
+    name: string;
+    rank: number;
+    types: { type: { name: string } }[]; 
+    setImgLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const Card: React.FC<CardProps> = ({ img, name, rank, types, setImgLoaded }) => {
     return (
         <div className={`${getBgColorType(types[0]?.type.name)} bg-[#1EBA11] mt-24 h-72  relative rounded-lg`}>
             <img 
                 src={img} 
-                className='w-60 ml-10 absolute -top-28' alt="#" 
+                className='w-60 ml-10 absolute -top-28' alt="#"
+                onLoad={() => setImgLoaded(true)}
             />
             <div className='absolute top-40 pl-9'>
                 <h3 className='text-white text-2xl font-semibold'>{capitalizedText(name)}</h3>
