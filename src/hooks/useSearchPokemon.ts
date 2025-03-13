@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react";
 import { toast } from 'react-hot-toast';
 import { usePokemonContext } from "@/context/pokemonContext";
 
 export const useSearchPokemon = () => {
-    const [searching, setSearching] = useState(false);
-    const { pokemons, setPokemon, setImgLoaded } = usePokemonContext();
+    const { pokemons, setPokemon, setImgLoaded, searching, setSearching } = usePokemonContext();
 
     const handleSearch = async (query: string) => {
         try {
             setImgLoaded(false);
             setSearching(true);
 
-            console.log('setsearching', searching)
+            console.log('setsearching', searching, query)
 
             const localFiltered = pokemons.filter((pokemon) => (
-                pokemon.name.toLowerCase().includes(query.toLowerCase())
+                pokemon?.name?.toLowerCase().includes(query?.toLowerCase()) ||
+                pokemon[0]?.name?.toLowerCase().includes(query?.toLowerCase()) 
             ));
     
             const apiSearch = await searchPokemonApi(query);
@@ -26,29 +25,46 @@ export const useSearchPokemon = () => {
 
         } catch (error) {
             if(error instanceof Error)
+            console.log(error);
             toast.error(error.message || 'An unknown error occured');
         } finally {
             setSearching(false);
         }
     };
 
-    useEffect(() => {
-        setSearching(true);
-    }, [searching]);
-
-    return { handleSearch, searching };
+    return { handleSearch };
 };
 
 
 const searchPokemonApi = async (query: string) => {
     if(!query) return;
     const API = `https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`;
+    const typeAPI = `https://pokeapi.co/api/v2/type/${query.toLowerCase()}`;
+    
     try {
         const res = await fetch(API);
         if(res.ok) {
             const data = await res.json();
             return [data];
-        } else {
+        } else if(!res.ok) {
+            const typeResp = await fetch(typeAPI);
+            if(typeResp.ok) {
+                const typeData = await typeResp.json();
+                const pokemonList = typeData.pokemon.map((p: any) => p.pokemon);
+                console.log(pokemonList);
+                const detailedPokemon = await Promise.all(
+                    pokemonList.slice(0, 5).map(async (p: any) => {
+                        const res = await fetch(p.url);
+                        const data = await res.json();
+                        return [data];
+                        console.log('res', data)
+                    })
+                )
+                return detailedPokemon;
+                console.log(typeData);
+            }
+        } 
+        else {
             toast.error('pokemon not found');
         }
     } catch (error) {
