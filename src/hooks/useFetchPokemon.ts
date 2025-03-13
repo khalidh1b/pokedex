@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Pokemon {
     id: number;
@@ -38,6 +38,10 @@ const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean, React.Disp
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchPokemon()
+    }, []);
 
     return [fetchPokemon, pokemons, loading, setPokemon];
 };
