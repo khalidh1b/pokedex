@@ -18,16 +18,20 @@ export const Main = () => {
             {(loading) ? Array.from({ length: 12 }).map((_, idx) => (
                 <CardSkeleton key={idx}/>
             ))  : 
-                pokemons.map((pokemon) => (
-                    <Card 
-                        key={pokemon.id || pokemon[0].id} 
-                        img={pokemon.sprites?.other['official-artwork']?.front_default || pokemon[0].sprites?.other['official-artwork']?.front_default}
-                        name={pokemon.name || pokemon[0].name}
-                        rank={pokemon.id || pokemon[0].id}
-                        types={pokemon.types || pokemon[0].types}
-                        setImgLoaded={setImgLoaded}
-                    />
-                ))
+                pokemons.map((pokemon) => {
+                    const currentPokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon;
+
+                    return (
+                        <Card 
+                            key={currentPokemon.id} 
+                            img={currentPokemon.sprites?.other['official-artwork']?.front_default}
+                            name={currentPokemon.name}
+                            rank={currentPokemon.id}
+                            types={currentPokemon.types}
+                            setImgLoaded={setImgLoaded}
+                        />
+                    )
+                })
             }
             
         </div>
