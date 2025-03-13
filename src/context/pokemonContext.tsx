@@ -1,5 +1,5 @@
 import useFetchPokemon from "@/hooks/useFetchPokemon";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface Pokemon {
     id: number;
@@ -14,7 +14,9 @@ interface PokemonContextType {
     setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>;
     loading: boolean;
     imgLoaded: boolean;
-    setImgLoaded: React.Dispatch<React.SetStateAction<boolean>>
+    setImgLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+    searching: boolean;
+    setSearching: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const PokemonContext = createContext<PokemonContextType | undefined>(undefined);
@@ -31,9 +33,10 @@ export const usePokemonContext = () => {
 export const PokemonProvider = ({ children }: { children: React.ReactNode }) => {
     const [fetchPokemon, pokemons, loading, setPokemon] = useFetchPokemon();
     const [imgLoaded, setImgLoaded] = useState(false);
+    const [searching, setSearching] = useState(false);
 
     return (
-        <PokemonContext.Provider value={{ fetchPokemon, pokemons, loading, setPokemon, imgLoaded, setImgLoaded }}>
+        <PokemonContext.Provider value={{ fetchPokemon, pokemons, loading, setPokemon, imgLoaded, setImgLoaded, searching, setSearching }}>
             {children}
         </PokemonContext.Provider>
     )
