@@ -4,7 +4,6 @@ import { getBgColorType } from '@/utils/getBgColorType';
 import { capitalizedText } from '@/utils/capitalizedText';
 
 export const Card = ({ img, name, rank, types }) => {
-    console.log(types[0])
     return (
         <div className={`${getBgColorType(types[0]?.type.name)} bg-[#1EBA11] mt-24 h-72  relative rounded-lg`}>
             <img 

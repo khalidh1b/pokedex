@@ -7,13 +7,16 @@ interface Pokemon {
     types: { type: { name: string } }[];
 };
 
-const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean] => {
+const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean, React.Dispatch<React.SetStateAction<Pokemon[]>>] => {
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
     const [loading, setLoading] = useState(false);
     
     const API = "https://pokeapi.co/api/v2/pokemon?limit=24";
     
     const fetchPokemon = async () => {
+        if(pokemons.length > 0) return;
+
+        console.log('useFetchPokemon calling!', pokemons);
         try {
             setLoading(true);
             const res = await fetch(API);
@@ -36,7 +39,7 @@ const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean] => {
         }
     };
 
-    return [fetchPokemon, pokemons, loading];
+    return [fetchPokemon, pokemons, loading, setPokemon];
 };
 
 export default useFetchPokemon;

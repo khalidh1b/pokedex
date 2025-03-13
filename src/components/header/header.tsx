@@ -6,10 +6,9 @@ import { useSearchPokemon } from '@/hooks/useSearchPokemon';
 import React, { useState } from 'react';
 
 export const Header = () => {
-    const { handleSearch, searchedPokemons } = useSearchPokemon();
+    const { handleSearch } = useSearchPokemon();
     const [searchQuery, setSearchQuery] = useState('');
     
-    console.log(searchedPokemons);
     // handleSearch('query')
     const pokemonSearch = (e: React.FormEvent) => {
         e.preventDefault();

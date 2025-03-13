@@ -1,11 +1,12 @@
 import { useState } from "react";
-import useFetchPokemon from "./useFetchPokemon";
+// import useFetchPokemon from "./useFetchPokemon";
 import { toast } from 'react-hot-toast';
+import { usePokemonContext } from "@/context/pokemonContext";
 
 export const useSearchPokemon = () => {
     const [searching, setSearching] = useState(false);
-    const [fetchPokemon, pokemons, loading] = useFetchPokemon();
-    const [searchedPokemons, setSearchedPokemons] = useState<any[]>([]);
+    // const [fetchPokemon, pokemons, loading, setPokemon] = useFetchPokemon();
+    const { fetchPokemon, pokemons, loading, setPokemon } = usePokemonContext();
 
     const handleSearch = async (query: string) => {
         setSearching(true);
@@ -19,11 +20,12 @@ export const useSearchPokemon = () => {
         const combinedSearchResults = [...localFiltered, ...apiSearch || []];
 
         console.log('combinedSearchResults', combinedSearchResults);
-        setSearchedPokemons(combinedSearchResults);
+        setPokemon([...combinedSearchResults]);
+        // setSearchedPokemons(combinedSearchResults);
         setSearching(false);
     };
 
-    return { handleSearch, searchedPokemons };
+    return { handleSearch };
 };
 
 
@@ -41,5 +43,3 @@ const searchPokemonApi = async (query: string) => {
         toast.error('Error during API search, please try again!')
     }
 };
-
-export default searchPokemonApi;

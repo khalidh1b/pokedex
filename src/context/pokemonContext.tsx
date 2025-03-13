@@ -1,0 +1,37 @@
+import useFetchPokemon from "@/hooks/useFetchPokemon";
+import { createContext, useContext } from "react";
+
+interface Pokemon {
+    id: number;
+    name: string;
+    sprites: { front_default: string };
+    types: { type: { name: string } }[];
+};
+
+interface PokemonContextType {
+    pokemons: Pokemon[];
+    fetchPokemon: () => Promise<void>;
+    setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>;
+    loading: boolean;
+};
+
+const PokemonContext = createContext<PokemonContextType | undefined>(undefined);
+
+export const usePokemonContext = () => {
+    const pokemonContext = useContext(PokemonContext);
+    if (!pokemonContext) {
+        throw new Error("usePokemonContext must be used within a PokemonProvider");
+    }
+    return pokemonContext;
+};
+
+
+export const PokemonProvider = ({ children }: { children: React.ReactNode }) => {
+    const [fetchPokemon, pokemons, loading, setPokemon] = useFetchPokemon();
+    
+    return (
+        <PokemonContext.Provider value={{ fetchPokemon, pokemons, loading, setPokemon }}>
+            {children}
+        </PokemonContext.Provider>
+    )
+};

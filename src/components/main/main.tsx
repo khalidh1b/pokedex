@@ -1,17 +1,29 @@
 import { Card } from '@/components/ui/card';
-import useFetchPokemon from '@/hooks/useFetchPokemon';
+// import useFetchPokemon from '@/hooks/useFetchPokemon';
 import { useEffect } from 'react';
 import { CardSkeleton } from '@/components/ui/card-skeleton';
+import { usePokemonContext } from '@/context/pokemonContext';
 
 export const Main = () => {
+    // const [fetchPokemon, pokemons, loading, ] = useFetchPokemon();
+    const { fetchPokemon, pokemons, loading, setPokemon } = usePokemonContext();
 
-    const [fetchPokemon, pokemons, loading] = useFetchPokemon();
-    
     useEffect(() => {
         fetchPokemon()
     }, [])
 
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
+    // console.log(pokemons);
     console.log(pokemons);
+    console.log('pokemons');
     console.log(loading);
 
     return (
