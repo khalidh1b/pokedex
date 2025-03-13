@@ -9,12 +9,10 @@ export const Header = () => {
     const { handleSearch } = useSearchPokemon();
     const [searchQuery, setSearchQuery] = useState('');
     
-    // handleSearch('query')
     const pokemonSearch = (e: React.FormEvent) => {
         e.preventDefault();
         handleSearch(searchQuery);
     };
-    console.log(searchQuery);
 
     return (
         <header>

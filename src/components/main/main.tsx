@@ -13,7 +13,7 @@ export const Main = () => {
     console.log('loading', loading);
 
     return (
-        <div className='grid grid-cols-4 gap-6 '>
+        <div className='grid md:grid-cols-4 grid-cols-1 gap-6 '>
                 
             {(loading) ? Array.from({ length: 12 }).map((_, idx) => (
                 <CardSkeleton key={idx}/>
