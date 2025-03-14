@@ -102,7 +102,7 @@ For any questions or suggestions, feel free to reach out:
 ```bash
 📧 Email: [mdkhalidhossen10@gmail.com]
 
-🐦 Twitter: @yourhandle
+🐦 Twitter: https://x.com/khalidhusseinx
 
 Made with ❤️ by Khalid
 ```
