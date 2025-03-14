@@ -44,18 +44,22 @@ const searchPokemonApi = async (query: string) => {
     if(!query) return;
     const API = `https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`;
     const typeAPI = `https://pokeapi.co/api/v2/type/${query.toLowerCase()}`;
-    
+
     try {
         const res = await fetch(API);
+        
         if(res.ok) {
             const data = await res.json();
             return [data];
-        } else if(!res.ok) {
+        } 
+        
+        else if(!res.ok) {
             const typeResp = await fetch(typeAPI);
             if(typeResp.ok) {
                 const typeData = await typeResp.json();
                 const pokemonList = typeData.pokemon.map((p: any) => p.pokemon);
-                console.log(pokemonList);
+                // console.log(pokemonList);
+                
                 const detailedPokemon = await Promise.all(
                     pokemonList.slice(0, 5).map(async (p: any) => {
                         const res = await fetch(p.url);
@@ -63,9 +67,10 @@ const searchPokemonApi = async (query: string) => {
                         return [data];
                         console.log('res', data)
                     })
-                )
-                return detailedPokemon;
+                );
+                
                 console.log(typeData);
+                return detailedPokemon;
             }
         } 
         else {
