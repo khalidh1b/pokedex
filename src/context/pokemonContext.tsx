@@ -1,5 +1,5 @@
 import useFetchPokemon from "@/hooks/useFetchPokemon";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 interface Pokemon {
     id: number;
