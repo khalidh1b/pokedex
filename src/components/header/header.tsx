@@ -1,23 +1,33 @@
 import { PokedexLogo } from '@/components/ui/logo';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Sort } from '@/components/ui/sort';
+import { Filter } from '@/components/ui/filter';
 import { Search } from 'lucide-react';
 import { useSearchPokemon } from '@/hooks/useSearchPokemon';
 import React, { useState } from 'react';
+import { Theme } from '@/components/ui/theme';
+import handleThemeToggle from '@/utils/handleThemeToggle';
+import useHandleSorting from '@/hooks/useHandleSorting';
 
 export const Header = () => {
     const { handleSearch } = useSearchPokemon();
     const [searchQuery, setSearchQuery] = useState('');
+    const { handleThemeChange, theme } = handleThemeToggle();
+    const { sortBy, setSortBy } = useHandleSorting();
     
     const pokemonSearch = (e: React.FormEvent) => {
         e.preventDefault();
         handleSearch(searchQuery);
     };
-
+    
     return (
         <header>
-            <PokedexLogo/>
-            <div className='relative mt-7 mb-20'>
+            <div className='flex select-none items-center justify-between'>
+                <PokedexLogo/>
+                <Theme handleThemeChange={handleThemeChange} theme={theme}/>
+            </div>
+            <div className='relative mt-7'>
                 <form onSubmit={pokemonSearch}>
                     <Search className='absolute left-3 top-2.5 text-[#416EDF]'/>
                     <Input
@@ -34,6 +44,13 @@ export const Header = () => {
                         onclick={() => pokemonSearch}
                     />
                 </form>
+            </div>
+            <div className='flex justify-between mb-20 mt-10'>
+                <Sort 
+                    setSortBy={setSortBy}
+                    sortBy={sortBy}
+                />
+                <Filter/>
             </div>
         </header>
     )
