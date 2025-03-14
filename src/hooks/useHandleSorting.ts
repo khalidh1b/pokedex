@@ -18,6 +18,8 @@ const useHandleSorting = () => {
                     return a.name.localeCompare(b.name)
                 case 'id-desc-alpha':
                     return b.name.localeCompare(a.name)
+                default:
+                    return a.id - b.id;
             }
         }))
     };
