@@ -9,16 +9,30 @@ interface CardProps {
     name: string;
     rank: number;
     types: { type: { name: string } }[]; 
-    setImgLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+    openModal: (pokemon: any) => void;
+    pokemon: object;
+    handleImgLoad: () => void;
 };
 
-export const Card: React.FC<CardProps> = ({ img, name, rank, types, setImgLoaded }) => {
+export const Card: React.FC<CardProps> = ({ 
+    img, 
+    name, 
+    rank, 
+    types, 
+    openModal, 
+    pokemon, 
+    handleImgLoad 
+}) => {
     return (
-        <div className={`${types?.[0]?.type.name && getBgColorType(types[0]?.type.name)} bg-[#1EBA11] mt-24 h-72  relative rounded-lg`}>
+        <div className={`${types?.[0]?.type.name && getBgColorType(types[0]?.type.name)} bg-[#1EBA11] mt-24 h-72  relative rounded-lg`}
+        onClick={() => openModal(pokemon)}
+        >
             <img 
                 src={img} 
-                className='w-60 ml-10 absolute -top-28' alt="#"
-                onLoad={() => setImgLoaded(true)}
+                className='w-60 ml-10 absolute -top-28' 
+                alt={name}
+                onLoad={handleImgLoad}
+                loading='lazy'
             />
             <div className='absolute top-40 pl-9'>
                 <h3 className='text-white text-2xl font-semibold'>{capitalizedText(name || '')}</h3>
@@ -29,7 +43,9 @@ export const Card: React.FC<CardProps> = ({ img, name, rank, types, setImgLoaded
                     ))}
                 </div>
             </div>
-            <Pokebol/>
+            <div className='absolute bottom-0'>
+                <Pokebol/>
+            </div>
         </div>
     )
 };
