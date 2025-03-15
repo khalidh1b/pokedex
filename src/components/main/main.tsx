@@ -32,7 +32,7 @@ export const Main = () => {
         <>
         <div className='grid md:grid-cols-4 grid-cols-1 gap-6'>
             
-            {!imgLoaded && Array.from({ length: 12 }).map((_, idx) => (
+            {!imgLoaded && Array.from({ length: 10 }).map((_, idx) => (
                 <CardSkeleton key={idx}/>
             ))}
 

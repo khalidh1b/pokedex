@@ -11,7 +11,8 @@ interface Pokemon {
 const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean, React.Dispatch<React.SetStateAction<Pokemon[]>>] => {
     const [pokemons, setPokemon] = useState<Pokemon[]>([]);
     const [loading, setLoading] = useState(false);
-    const API = "https://pokeapi.co/api/v2/pokemon?limit=24";    
+
+    const API = "https://pokeapi.co/api/v2/pokemon?limit=12";    
     
     const fetchPokemon = async () => {
         // if(pokemons.length > 0) return;
@@ -21,7 +22,7 @@ const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean, React.Disp
             const res = await fetch(API);
             const data = await res.json();
             setLoading(false);
-
+            console.log('fetching first time')
             const fetchPokemonDetails = data.results.map(async (pokemon: {url: string}) => {
                 const detailsRes = await fetch(pokemon.url);
                 return detailsRes.json();
