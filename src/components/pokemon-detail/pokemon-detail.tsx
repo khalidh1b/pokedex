@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { ArrowLeft, Flame } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { getColorType } from "@/utils/getColorType";
+import { getBgColorType } from "@/utils/getBgColorType";
 
 type PokemonDetailProps = {
   closeModal: () => void;
@@ -17,6 +19,7 @@ export const PokemonDetail: React.FC<PokemonDetailProps> = ({ closeModal, pokemo
                   name={pokemon.name}
                   order={pokemon.order}
                   image={pokemon.sprites?.other['official-artwork']?.front_default}
+                  types={pokemon.types}
                 />
                 <div className="bg-white rounded-t-3xl -mt-6 relative z-10">
                     <TabLists 
@@ -40,7 +43,8 @@ type PokemonDetailHeaderProp = {
   closeModal: () => void;
   order: string;
   name: string;
-  image: string
+  image: string;
+  types: { type: { name: string } }[]
 };
 
 
@@ -48,10 +52,12 @@ const PokemonDetailHeader: React.FC<PokemonDetailHeaderProp> = ({
     closeModal, 
     order, 
     name, 
-    image 
+    image,
+    types
 }) => {
+  console.log('tyupes', types)
     return (
-        <div className="relative bg-[#fa7a7a] pt-4 pb-16">
+        <div className={`relative pt-4 pb-16 ${types?.[0].type.name && getBgColorType(types[0]?.type.name)}`}>
 
           <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-[#fc8c8c] opacity-30 -mr-10 -mt-10"></div>
           <div className="absolute bottom-0 right-0 w-32 h-32 rounded-full bg-[#fc8c8c] opacity-30 -mr-10 mb-10"></div>
@@ -79,9 +85,10 @@ const PokemonDetailHeader: React.FC<PokemonDetailHeaderProp> = ({
             <div className="ml-2 text-white">
                 <p className="text-lg font-medium">#{order}</p>
                 <h1 className="text-4xl font-bold mb-2">{name}</h1>
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#ff7b00] bg-opacity-30">
-                  <Flame size={16} className="mr-1" />
-                  <span className="text-sm">Fire</span>
+                  <div className="flex pt-2 gap-1 text-[#212121] font-medium">
+                    {types?.map((t, index) => (
+                        <span key={index} className={`${getColorType(t.type.name)} py-0.5 px-3 rounded-3xl`}>{t.type.name}</span>
+                    ))}
                 </div>
             </div>
             </div>
@@ -147,7 +154,7 @@ const TabContent: React.FC<TabContentProp> = ({
             )}
 
             {activeTab === "evolution" && (
-              <div className="text-center text-gray-500">Evolution content would go here</div>
+              <div className="text-center text-gray-500"></div>
             )}
         </div>
     )
@@ -160,7 +167,7 @@ type TabListsProp = {
 
 const TabLists: React.FC<TabListsProp> = ({ activeTab, setActiveTab }) => {
     return (
-        <div className="flex border-b">
+        <div className="flex">
             <button
               onClick={() => setActiveTab("about")}
               className={`py-4 px-6 focus:outline-none ${
