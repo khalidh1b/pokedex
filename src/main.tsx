@@ -4,11 +4,16 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom';
 import { router } from '@/routes/router.tsx';
 import { PokemonProvider } from '@/context/pokemonContext';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
+const newClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <PokemonProvider>
-      <RouterProvider router={router}/>
+      <QueryClientProvider client={newClient}>
+        <RouterProvider router={router}/>
+      </QueryClientProvider>
     </PokemonProvider>
   </StrictMode>,
 )
