@@ -1,49 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import axios from 'axios';
+import { usePokemonContext } from "@/context/pokemonContext";
 
-interface Pokemon {
-    id: number;
-    name: string;
-    sprites: { front_default: string };
-    types: { type: { name: string } }[];
-};
-
-
-const useFetchPokemon = (): [() => Promise<void>, Pokemon[], boolean, React.Dispatch<React.SetStateAction<Pokemon[]>>] => {
-    const [pokemons, setPokemon] = useState<Pokemon[]>([]);
-    const [loading, setLoading] = useState(false);
+const useFetchPokemon = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const { setPokemon, pokemons } = usePokemonContext();
 
     const API = "https://pokeapi.co/api/v2/pokemon?limit=12";    
     
     const fetchPokemon = async () => {
-        // if(pokemons.length > 0) return;
+        
+        if(pokemons.length > 0) return;
+        if(loading) return;
 
         try {
             setLoading(true);
-            const res = await fetch(API);
-            const data = await res.json();
-            setLoading(false);
-            console.log('fetching first time')
-            const fetchPokemonDetails = data.results.map(async (pokemon: {url: string}) => {
+            const res = await axios.get(API);
+            console.log('fetching first time');
+
+            const fetchPokemonDetails = res.data.results.map(async (pokemon: {url: string}) => {
                 const detailsRes = await fetch(pokemon.url);
                 return detailsRes.json();
             });
-
+            
             const detailedPokemon = await Promise.all(fetchPokemonDetails);
             setPokemon(detailedPokemon);
-
+            
         } catch (error) {
             console.log(error);
-            setLoading(false)
         } finally {
             setLoading(false);
         }
     };
 
-    useEffect(() => {
-        fetchPokemon()
-    }, []);
+    // console.log('loading', loading);
 
-    return [fetchPokemon, pokemons, loading, setPokemon];
+    return fetchPokemon;
 };
 
 export default useFetchPokemon;
