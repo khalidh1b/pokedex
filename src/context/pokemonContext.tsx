@@ -1,4 +1,3 @@
-import useFetchPokemon from "@/hooks/useFetchPokemon";
 import { createContext, useContext, useState } from "react";
 
 interface Pokemon {
@@ -10,13 +9,13 @@ interface Pokemon {
 
 interface PokemonContextType {
     pokemons: Pokemon[];
-    fetchPokemon: () => Promise<void>;
     setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>;
     loading: boolean;
     imgLoaded: boolean;
     setImgLoaded: React.Dispatch<React.SetStateAction<boolean>>;
     searching: boolean;
-    setSearching: React.Dispatch<React.SetStateAction<boolean>>
+    setSearching: React.Dispatch<React.SetStateAction<boolean>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const PokemonContext = createContext<PokemonContextType | undefined>(undefined);
@@ -31,12 +30,13 @@ export const usePokemonContext = () => {
 
 
 export const PokemonProvider = ({ children }: { children: React.ReactNode }) => {
-    const [fetchPokemon, pokemons, loading, setPokemon] = useFetchPokemon();
+    const [pokemons, setPokemon] = useState<Pokemon[]>([]);
     const [imgLoaded, setImgLoaded] = useState(false);
     const [searching, setSearching] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     return (
-        <PokemonContext.Provider value={{ fetchPokemon, pokemons, loading, setPokemon, imgLoaded, setImgLoaded, searching, setSearching }}>
+        <PokemonContext.Provider value={{ pokemons,  setLoading, loading, setPokemon, imgLoaded, setImgLoaded, searching, setSearching }}>
             {children}
         </PokemonContext.Provider>
     )
