@@ -1,10 +1,12 @@
 import { usePokemonContext } from '@/context/pokemonContext';
 import { useState } from 'react';
+import useFetchPokemon from './useFetchPokemon';
 
 const useHandleFilter = () => {
     const [filterOpen, setFilterOpen] = useState(false);
     const [filterTypes, setFilterTypes] = useState<string[]>([])
-    const { pokemons, setPokemon, fetchPokemon } = usePokemonContext();
+    const { pokemons, setPokemon } = usePokemonContext();
+    const fetchPokemon = useFetchPokemon();
 
     const handleCheckboxChange = (type: string) => {
         setFilterTypes((prev) => (
