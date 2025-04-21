@@ -6,10 +6,15 @@ interface SortProps {
 };
 
 export const Sort: React.FC<SortProps> = ({ setSortBy, sortBy }) => {
+    
+    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSortBy(e.target.value)
+    };
+    
     return (
         <select 
             className="bg-white px-4 py-1 cursor-pointer focus:outline-none border-gray-300 border-2 rounded-md text-[#212121] font-medium"
-            onChange={(e) => setSortBy(e.target.value)}
+            onChange={handleSortChange}
             value={sortBy}
             >
             <option value="id-asc">Lowest Number First</option>
