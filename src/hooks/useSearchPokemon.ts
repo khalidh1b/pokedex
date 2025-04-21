@@ -65,7 +65,7 @@ const searchPokemonApi = async (query: string) => {
                         const res = await fetch(p.url);
                         const data = await res.json();
                         return [data];
-                        console.log('res', data)
+                        // console.log('res', data)
                     })
                 );
                 
