@@ -59,8 +59,8 @@ const PokemonDetailHeader: React.FC<PokemonDetailHeaderProp> = ({
     return (
         <div className={`relative pt-4 pb-16 ${types?.[0].type.name && getBgColorType(types[0]?.type.name)}`}>
 
-          <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-[#fc8c8c] opacity-30 -mr-10 -mt-10"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 rounded-full bg-[#fc8c8c] opacity-30 -mr-10 mb-10"></div>
+          <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-[#fc8c8c] opacity-30 -mr-10 -mt-10" />
+          <div className="absolute bottom-0 right-0 w-32 h-32 rounded-full bg-[#fc8c8c] opacity-30 -mr-10 mb-10" />
 
           <div className="px-6">
             <button 
@@ -147,14 +147,14 @@ const TabContent: React.FC<TabContentProp> = ({
                     <span>{stat.base_stat}</span>
                   </div>
                   <div className="w-full bg-gray-300">
-                    <div className="h-1 rounded-md bg-[#FF6464]" style={{width: `${parseInt(stat.base_stat)}%`}}></div>
+                    <div className="h-1 rounded-md bg-[#FF6464]" style={{width: `${parseInt(stat.base_stat)}%`}} />
                   </div>
                 </div>
               ))
             )}
 
             {activeTab === "evolution" && (
-              <div className="text-center text-gray-500"></div>
+              <div className="text-center text-gray-500" />
             )}
         </div>
     )
