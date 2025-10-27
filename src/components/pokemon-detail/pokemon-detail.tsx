@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { getColorType } from "@/utils/getColorType";
 import { getBgColorType } from "@/utils/getBgColorType";
+import { Image } from "@/components/common/image";
 
 type PokemonDetailProps = {
   closeModal: () => void;
@@ -55,7 +56,7 @@ const PokemonDetailHeader: React.FC<PokemonDetailHeaderProp> = ({
     image,
     types
 }) => {
-  console.log('tyupes', types)
+  // console.log('tyupes', types)
     return (
         <div className={`relative pt-4 pb-16 ${types?.[0].type.name && getBgColorType(types[0]?.type.name)}`}>
 
@@ -73,12 +74,10 @@ const PokemonDetailHeader: React.FC<PokemonDetailHeaderProp> = ({
             <div className="flex items-start mt-2">
 
               <div className="w-32 h-32 relative">
-                <img
+                <Image
                   src={image}
                   alt="Charmeleon"
-                  width={130}
-                  height={130}
-                  className="object-contain"
+                  className="object-contain h-[130px] w-[130px]"
                 />
               </div>
 
@@ -113,7 +112,7 @@ const TabContent: React.FC<TabContentProp> = ({
   abilities 
 }) => {
     // console.log(stats);
-    console.log(abilities);
+    // console.log(abilities);
     return (
         <div className="p-6 pt-4">
             {activeTab === "about" && (
