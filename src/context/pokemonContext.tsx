@@ -9,10 +9,8 @@ interface Pokemon {
 
 interface PokemonContextType {
     pokemons: Pokemon[];
-    setPokemon: React.Dispatch<React.SetStateAction<Pokemon[]>>;
+    setPokemons: React.Dispatch<React.SetStateAction<Pokemon[]>>;
     loading: boolean;
-    imgLoaded: boolean;
-    setImgLoaded: React.Dispatch<React.SetStateAction<boolean>>;
     searching: boolean;
     setSearching: React.Dispatch<React.SetStateAction<boolean>>;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,13 +28,12 @@ export const usePokemonContext = () => {
 
 
 export const PokemonProvider = ({ children }: { children: React.ReactNode }) => {
-    const [pokemons, setPokemon] = useState<Pokemon[]>([]);
-    const [imgLoaded, setImgLoaded] = useState(false);
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [searching, setSearching] = useState(false);
     const [loading, setLoading] = useState(false);
 
     return (
-        <PokemonContext.Provider value={{ pokemons,  setLoading, loading, setPokemon, imgLoaded, setImgLoaded, searching, setSearching }}>
+        <PokemonContext.Provider value={{ pokemons, setLoading, loading, setPokemons, searching, setSearching }}>
             {children}
         </PokemonContext.Provider>
     )
