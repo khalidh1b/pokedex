@@ -1,7 +1,8 @@
+import { Image } from '@/components/common/image';
 import pokedexlogo from '/Pokedex-logo.png';
 
 export const PokedexLogo = () => {
     return (
-        <img src={pokedexlogo} alt="Pokedex" className='w-52'/>
+        <Image src={pokedexlogo} alt="Pokedex" className='w-52'/>
     )
 };
