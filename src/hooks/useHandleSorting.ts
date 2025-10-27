@@ -2,13 +2,13 @@ import { usePokemonContext } from '@/context/pokemonContext';
 import { useEffect, useState } from 'react';
 
 const useHandleSorting = () => {
-    const { pokemons, setPokemon } = usePokemonContext();
+    const { pokemons, setPokemons } = usePokemonContext();
 
     const [sortBy, setSortBy] = useState<string>('id-asc');
     // console.log(sortBy)
 
     const sortPokemons = () => { 
-        setPokemon([...pokemons].sort((a, b) => {
+        setPokemons([...pokemons].sort((a, b) => {
             switch (sortBy) {
                 case 'id-asc':
                     return a.id - b.id
