@@ -7,7 +7,7 @@ import { PokemonDetail } from '@/components/pokemon-detail/pokemon-detail';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
 
 export const Main = () => {
-    const { pokemons, loading, searching, imgLoaded, setImgLoaded } = usePokemonContext();
+    const { pokemons, loading } = usePokemonContext();
     const { ref, scrollLoading } = useInfiniteScrolling();
     const [selectedPokemon, setSelectedPokemon] = useState(null);
     const fetchPokemon = useFetchPokemon();
@@ -24,44 +24,27 @@ export const Main = () => {
         setSelectedPokemon(null);
     };
 
-    // console.log('loading',loading, 'scrollloading',scrollLoading, 'searching',searching);
-    
-    // console.log('imgLoaded', imgLoaded);
-    // console.log('pokemonms', pokemons);
-    // console.log('imgLoaded', setImgLoaded);
-    
-    const handleImgLoad = () => {
-        setImgLoaded(true);
-    };
-
     return (
         <>
         <div className='grid md:grid-cols-4 grid-cols-1 gap-6'>
-
-        {!imgLoaded || pokemons.length <= 0 && Array.from({ length: 10 }).map((_, idx) => (
-            <CardSkeleton key={idx}/>
-        ))}
             
             {pokemons.map((pokemon) => {
                 const currentPokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon;
                 
                     return (
                         <Card 
-                        key={currentPokemon.id} 
-                        img={currentPokemon.sprites?.other['official-artwork']?.front_default}
-                        name={currentPokemon.name}
-                        rank={currentPokemon.id}
-                        types={currentPokemon.types}
-                        openModal={openModal}
-                        pokemon={pokemon}
-                        handleImgLoad={handleImgLoad}
+                            key={currentPokemon.id} 
+                            img={currentPokemon.sprites?.other['official-artwork']?.front_default}
+                            name={currentPokemon.name}
+                            rank={currentPokemon.id}
+                            types={currentPokemon.types}
+                            openModal={openModal}
+                            pokemon={pokemon}
                         />
                     )
                 })}
-            
-            {(loading || scrollLoading || searching || !imgLoaded) ? Array.from({ length: 12 }).map((_, idx) => (
-                <CardSkeleton key={idx}/>
-            )) : <CardSkeleton />
+            {
+                loading || scrollLoading && <CardSkeleton/>
             }
 
             {selectedPokemon && (
