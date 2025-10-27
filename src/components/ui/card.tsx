@@ -3,6 +3,7 @@ import { getColorType } from '@/utils/getColorType';
 import { getBgColorType } from '@/utils/getBgColorType';
 import { capitalizedText } from '@/utils/capitalizedText';
 import React from 'react';
+import { Image } from '@/components/common/image';
 
 interface CardProps {
     img: string;
@@ -11,7 +12,6 @@ interface CardProps {
     types: { type: { name: string } }[]; 
     openModal: (pokemon: any) => void;
     pokemon: object;
-    handleImgLoad: () => void;
 };
 
 export const Card: React.FC<CardProps> = ({ 
@@ -21,18 +21,15 @@ export const Card: React.FC<CardProps> = ({
     types, 
     openModal, 
     pokemon, 
-    handleImgLoad 
 }) => {
     return (
         <div className={`${types?.[0]?.type.name && getBgColorType(types[0]?.type.name)} bg-[#1EBA11] mt-24 h-72  relative rounded-lg`}
         onClick={() => openModal(pokemon)}
         >
-            <img 
+            <Image 
                 src={img} 
                 className='w-60 ml-10 absolute -top-28' 
                 alt={name}
-                onLoad={handleImgLoad}
-                loading='lazy'
             />
             <div className='absolute top-40 pl-9'>
                 <h3 className='text-white text-2xl font-semibold'>{capitalizedText(name || '')}</h3>
