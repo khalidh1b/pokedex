@@ -1,11 +1,12 @@
 import { usePokemonContext } from "@/context/pokemonContext";
 import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useInView } from 'react-intersection-observer';
 
 const API = "https://pokeapi.co/api/v2/pokemon?limit=24";
 
 const useInfiniteScrolling = () => {
-    const { setPokemon } = usePokemonContext();
+    const { setPokemons } = usePokemonContext();
     const [nextUrl, setNextUrl] = useState<string | null>(API);
     const { ref, inView } = useInView();
     const [scrollLoading, setScrollLoading] = useState(false);
@@ -26,7 +27,7 @@ const useInfiniteScrolling = () => {
             const detailedPokemons = await Promise.all(detailedPokemonPromises);
             // console.log(detailedPokemons);
             
-            setPokemon((prev) => {
+            setPokemons((prev) => {
                 const newPokemon = detailedPokemons.filter(
                     (p) => !prev.some((existing) => existing.id === p.id)
                 );
@@ -35,7 +36,9 @@ const useInfiniteScrolling = () => {
             
             setNextUrl(data.next);
         } catch (error) {
-            console.log('failed to fetch pokemmons', error);
+            // console.error('failed to fetch pokemmons', error);
+            const err = error as Error;
+            toast.error(err?.message || 'An unknowed error occured, please try again!')
         } finally {
             setScrollLoading(false);
         }
