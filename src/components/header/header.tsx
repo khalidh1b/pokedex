@@ -3,19 +3,22 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Sort } from '@/components/ui/sort';
 import { Filter } from '@/components/ui/filter';
-import { Search } from 'lucide-react';
+import { Loader, Search } from 'lucide-react';
 import { useSearchPokemon } from '@/hooks/useSearchPokemon';
 import React, { useState } from 'react';
 import { Theme } from '@/components/ui/theme';
 import handleThemeToggle from '@/utils/handleThemeToggle';
 import useHandleSorting from '@/hooks/useHandleSorting';
+import { usePokemonContext } from '@/context/pokemonContext';
 
 export const Header = () => {
     const { handleSearch } = useSearchPokemon();
     const [searchQuery, setSearchQuery] = useState('');
     const { handleThemeChange, theme } = handleThemeToggle();
     const { sortBy, setSortBy } = useHandleSorting();
+    const { searching } = usePokemonContext();
     
+
     const pokemonSearch = (e: React.FormEvent) => {
         e.preventDefault();
         handleSearch(searchQuery);
@@ -37,12 +40,16 @@ export const Header = () => {
                         style={{ boxShadow: '0 -3px 6px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1)'}}
                         onchange={(e) => setSearchQuery(e.target.value)}
                     />
-                    <Button 
+                    
+                    {searching
+                    ? <div className='bg-[#FFCE31] absolute bottom-1 right-2 text-[#416EDF] px-10 rounded-md cursor-pointer font-medium text-sm py-2'><Loader className='w-6 h-6 animate-spin'/></div>
+                    : <Button 
                         content='Search' 
                         type='submit' 
                         className='bg-[#FFCE31] absolute top-1.5 right-2 text-[#416EDF] px-10 rounded-md cursor-pointer font-medium text-sm py-2' 
                         onclick={() => pokemonSearch}
-                    />
+                    /> 
+                    }
                 </form>
             </div>
             <div className='flex justify-between mb-20 mt-10'>
