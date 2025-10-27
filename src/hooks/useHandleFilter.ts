@@ -5,7 +5,7 @@ import useFetchPokemon from './useFetchPokemon';
 const useHandleFilter = () => {
     const [filterOpen, setFilterOpen] = useState(false);
     const [filterTypes, setFilterTypes] = useState<string[]>([])
-    const { pokemons, setPokemon } = usePokemonContext();
+    const { pokemons, setPokemons } = usePokemonContext();
     const fetchPokemon = useFetchPokemon();
 
     const handleCheckboxChange = (type: string) => {
@@ -16,14 +16,14 @@ const useHandleFilter = () => {
 
     const filterPokemons = (types: string[]) => {
         if(types.length === 0) {
-            setPokemon(pokemons);
+            setPokemons(pokemons);
             return;
         };
 
         const filtered = pokemons.filter((pokemon) => {
             return pokemon.types.some((t) => types.includes(t.type.name));
         });
-        setPokemon(filtered);
+        setPokemons(filtered);
     };
 
     const resetFilter = async () => {
