@@ -3,11 +3,8 @@ import { ArrowLeft } from "lucide-react";
 import { getColorType } from "@/utils/getColorType";
 import { getBgColorType } from "@/utils/getBgColorType";
 import { Image } from "@/components/common/image";
-
-type PokemonDetailProps = {
-  closeModal: () => void;
-  pokemon: any; 
-};
+import { TabContentProp } from "@/types/tab-content";
+import { PokemonDetailHeaderProp, PokemonDetailProps } from "@/types/pokemon";
 
 export const PokemonDetail: React.FC<PokemonDetailProps> = ({ closeModal, pokemon }) => {
     const [activeTab, setActiveTab] = useState('about');
@@ -18,8 +15,8 @@ export const PokemonDetail: React.FC<PokemonDetailProps> = ({ closeModal, pokemo
                 <PokemonDetailHeader 
                   closeModal={closeModal} 
                   name={pokemon.name}
-                  order={pokemon.order}
-                  image={pokemon.sprites?.other['official-artwork']?.front_default}
+                  order={pokemon.order.toString()}
+                  image={pokemon.sprites?.other?.['official-artwork']?.front_default || ""}
                   types={pokemon.types}
                 />
                 <div className="bg-white rounded-t-3xl -mt-6 relative z-10">
@@ -29,8 +26,8 @@ export const PokemonDetail: React.FC<PokemonDetailProps> = ({ closeModal, pokemo
                     />
                     <TabContent 
                       activeTab={activeTab} 
-                      height={pokemon.height} 
-                      weight={pokemon.weight} 
+                      height={pokemon.height.toString()} 
+                      weight={pokemon.weight.toString()} 
                       stats={pokemon.stats} 
                       abilities={pokemon.abilities}
                     />
@@ -38,14 +35,6 @@ export const PokemonDetail: React.FC<PokemonDetailProps> = ({ closeModal, pokemo
             </div>
         </div>
     )
-};
-
-type PokemonDetailHeaderProp = {
-  closeModal: () => void;
-  order: string;
-  name: string;
-  image: string;
-  types: { type: { name: string } }[]
 };
 
 
@@ -96,13 +85,6 @@ const PokemonDetailHeader: React.FC<PokemonDetailHeaderProp> = ({
     )
 };
 
-type TabContentProp = {
-  activeTab: string;
-  weight: string;
-  height: string;
-  stats: any;
-  abilities: any 
-};
 
 const TabContent: React.FC<TabContentProp> = ({ 
   activeTab, 
@@ -131,7 +113,7 @@ const TabContent: React.FC<TabContentProp> = ({
                 </div>
                 <div className="flex">
                   <span className="w-24 font-medium">Abilities</span>
-                  {abilities.map((ability: any, idx: number) => (
+                  {abilities.map((ability, idx: number) => (
                   <span key={idx} className="text-[#212121] pr-2">{ability.ability.name}</span>
                   ))}
                 </div>
@@ -139,14 +121,14 @@ const TabContent: React.FC<TabContentProp> = ({
             )}
 
             {activeTab === "base-stats" && (
-              stats.map((stat: any, idx: number) => (
+              stats.map((stat, idx: number) => (
                 <div key={idx} className="flex items-center justify-between mb-3">
                   <div className="flex justify-between w-4/6 text-[#212121] text-base font-medium mr-7">
                     <span>{stat.stat.name}</span>
                     <span>{stat.base_stat}</span>
                   </div>
                   <div className="w-full bg-gray-300">
-                    <div className="h-1 rounded-md bg-[#FF6464]" style={{width: `${parseInt(stat.base_stat)}%`}} />
+                    <div className="h-1 rounded-md bg-[#FF6464]" style={{width: `${parseInt(stat.base_stat.toString())}%`}} />
                   </div>
                 </div>
               ))
