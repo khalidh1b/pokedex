@@ -13,6 +13,9 @@ dist-ssr
 *.local
 Ads.txt
 .git
+.github
+SETUP.md
+.gitignore
 
 # Editor directories and files
 .vscode/*
