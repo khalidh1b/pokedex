@@ -1,9 +1,13 @@
-import { usePokemonContext } from "@/context/pokemonContext";
+import { usePokemonContext } from "@/hooks/usePokemonContext";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useInView } from 'react-intersection-observer';
 
 const API = "https://pokeapi.co/api/v2/pokemon?limit=24";
+
+interface Pokemon {
+    url: string
+};
 
 const useInfiniteScrolling = () => {
     const { setPokemons } = usePokemonContext();
@@ -20,7 +24,7 @@ const useInfiniteScrolling = () => {
             const data = await resp.json();
             // console.log('data scrolling', data);
             
-            const detailedPokemonPromises = data.results.map(async (pokemon: any) => {
+            const detailedPokemonPromises = data.results.map(async (pokemon: Pokemon) => {
                 const res = await fetch(pokemon.url);
                 return res.json();
             })
@@ -42,13 +46,13 @@ const useInfiniteScrolling = () => {
         } finally {
             setScrollLoading(false);
         }
-    }, [nextUrl, scrollLoading])
+    }, [nextUrl, setPokemons])
 
     useEffect(() => {
         if(inView) {
             fetchPokemons();
         } 
-    }, [inView]);
+    }, [inView, fetchPokemons]);
 
     return { ref, scrollLoading }
 };

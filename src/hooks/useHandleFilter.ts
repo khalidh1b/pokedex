@@ -1,4 +1,4 @@
-import { usePokemonContext } from '@/context/pokemonContext';
+import { usePokemonContext } from '@/hooks/usePokemonContext';
 import { useState } from 'react';
 import useFetchPokemon from './useFetchPokemon';
 
