@@ -1,31 +1,6 @@
-import { createContext, useContext, useState } from "react";
-
-interface Pokemon {
-    id: number;
-    name: string;
-    sprites: { front_default: string };
-    types: { type: { name: string } }[];
-};
-
-interface PokemonContextType {
-    pokemons: Pokemon[];
-    setPokemons: React.Dispatch<React.SetStateAction<Pokemon[]>>;
-    loading: boolean;
-    searching: boolean;
-    setSearching: React.Dispatch<React.SetStateAction<boolean>>;
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const PokemonContext = createContext<PokemonContextType | undefined>(undefined);
-
-export const usePokemonContext = () => {
-    const pokemonContext = useContext(PokemonContext);
-    if (!pokemonContext) {
-        throw new Error("usePokemonContext must be used within a PokemonProvider");
-    }
-    return pokemonContext;
-};
-
+import { useState } from "react";
+import { PokemonContext } from "@/hooks/usePokemonContext";
+import type { Pokemon } from "@/types/pokemon";
 
 export const PokemonProvider = ({ children }: { children: React.ReactNode }) => {
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
