@@ -1,11 +1,5 @@
 import React from "react";
-
-interface ButtonProps {
-    content: string,
-    className: string,
-    type: 'submit' | 'reset' | 'button',
-    onclick: () => void
-};
+import { ButtonProps } from "@/types/ui-components";
 
 export const Button: React.FC<ButtonProps> = ({ content, className, type, onclick }) => {
     return (

@@ -2,19 +2,12 @@ import { Pokebol } from '@/components/ui/pokebol';
 import { getColorType } from '@/utils/getColorType';
 import { getBgColorType } from '@/utils/getBgColorType';
 import { capitalizedText } from '@/utils/capitalizedText';
-import React from 'react';
+import * as React from 'react';
 import { Image } from '@/components/common/image';
+import { CardProps } from '@/types/ui-components';
 
-interface CardProps {
-    img: string;
-    name: string;
-    rank: number;
-    types: { type: { name: string } }[]; 
-    openModal: (pokemon: any) => void;
-    pokemon: object;
-};
 
-export const Card: React.FC<CardProps> = ({ 
+export const Card: React.FC<CardProps> = React.memo(({ 
     img, 
     name, 
     rank, 
@@ -32,8 +25,8 @@ export const Card: React.FC<CardProps> = ({
                 alt={name}
             />
             <div className='absolute top-40 pl-9'>
-                <h3 className='text-white text-2xl font-semibold'>{capitalizedText(name || '')}</h3>
-                <p className='text-white'>#{rank}</p>
+                <h3 className='text-black text-2xl font-semibold'>{capitalizedText(name || '')}</h3>
+                <p className='text-black'>#{rank}</p>
                 <div className="flex pt-2 gap-1 text-[#212121] font-medium">
                     {types?.map((t, index) => (
                         <span key={index} className={`${getColorType(t.type.name)} py-0.5 px-3 rounded-3xl`}>{t.type.name}</span>
@@ -45,4 +38,4 @@ export const Card: React.FC<CardProps> = ({
             </div>
         </div>
     )
-};
+});
