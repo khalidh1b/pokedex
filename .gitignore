@@ -13,6 +13,7 @@ dist-ssr
 *.local
 Ads.txt
 .git
+.firebase
 
 # Editor directories and files
 .vscode/*
