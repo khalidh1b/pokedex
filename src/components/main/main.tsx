@@ -1,28 +1,29 @@
 import { Card } from '@/components/ui/card';
 import { CardSkeleton } from '@/components/ui/card-skeleton';
-import { usePokemonContext } from '@/context/pokemonContext';
+import { usePokemonContext } from '@/hooks/usePokemonContext';
 import useInfiniteScrolling from '@/hooks/useInfiniteScrolling';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PokemonDetail } from '@/components/pokemon-detail/pokemon-detail';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
+import { Pokemon } from '@/types/pokemon';
 
 export const Main = () => {
     const { pokemons, loading } = usePokemonContext();
     const { ref, scrollLoading } = useInfiniteScrolling();
-    const [selectedPokemon, setSelectedPokemon] = useState(null);
+    const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
     const fetchPokemon = useFetchPokemon();
 
     useEffect(() => {
         fetchPokemon();
+    }, [fetchPokemon]);
+
+    const openModal = useCallback((pokemon: Pokemon) => {
+        setSelectedPokemon(pokemon);
     }, []);
 
-    const openModal = (pokemon: any) => {
-        setSelectedPokemon(pokemon);
-    };
-
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setSelectedPokemon(null);
-    };
+    }, []);
 
     return (
         <>
