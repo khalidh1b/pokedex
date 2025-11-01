@@ -32,7 +32,7 @@ describe('Card', () => {
     id: 1,
     name: 'bulbasaur',
     sprites: { front_default: 'bulbasaur.png' },
-    types: [{ type: { name: 'grass' } }],
+    types: [{ type: { name: 'grass' } }, { type: { name: 'poison' } }],
     stats: [],
     abilities: [],
     height: 7,
