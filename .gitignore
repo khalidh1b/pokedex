@@ -14,7 +14,9 @@ dist-ssr
 Ads.txt
 .git
 .firebase
+.github
 SETUP.md
+.gitignore
 
 # Editor directories and files
 .vscode/*
