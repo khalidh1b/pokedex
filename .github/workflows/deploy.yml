@@ -161,7 +161,7 @@ jobs:
 
     - name: Create GitHub Deployment
       id: create_deployment
-      uses: actions/create-deployment@v1
+      uses: altinukshini/deployment-action@v1.2.6
       with:
         token: '${{ secrets.GITHUB_TOKEN }}'
         environment: production
