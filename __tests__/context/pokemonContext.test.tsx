@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { usePokemonContext } from '@/hooks/usePokemonContext';
 import { PokemonProvider } from '@/context/pokemonContext';
 
@@ -62,8 +62,11 @@ describe('PokemonContext', () => {
 
     const setPokemonsButton = screen.getByTestId('set-pokemons');
     
-    setPokemonsButton.click();
+    act(() => {
+      setPokemonsButton.click();
+    });
 
+    expect(screen.getByTestId('pokemons-count')).toHaveTextContent('1');
   });
 
   it('should update loading state', () => {
@@ -75,7 +78,11 @@ describe('PokemonContext', () => {
 
     const setLoadingButton = screen.getByTestId('set-loading');
     
-    setLoadingButton.click();
+    act(() => {
+      setLoadingButton.click();
+    });
+
+    expect(screen.getByTestId('loading')).toHaveTextContent('true');
   });
 
   it('should update searching state', () => {
@@ -87,8 +94,11 @@ describe('PokemonContext', () => {
 
     const setSearchingButton = screen.getByTestId('set-searching');
     
-    setSearchingButton.click();
+    act(() => {
+      setSearchingButton.click();
+    });
 
+    expect(screen.getByTestId('searching')).toHaveTextContent('true');
   });
 
   it('should throw error when usePokemonContext is used outside provider', () => {
@@ -113,7 +123,9 @@ describe('PokemonContext', () => {
 
     // Update state
     const setPokemonsButton = screen.getByTestId('set-pokemons');
-    setPokemonsButton.click();
+    act(() => {
+      setPokemonsButton.click();
+    });
 
     // Re-render and check state is maintained
     rerender(
@@ -136,9 +148,15 @@ describe('PokemonContext', () => {
     const setLoadingButton = screen.getByTestId('set-loading');
     const setSearchingButton = screen.getByTestId('set-searching');
 
-    setPokemonsButton.click();
-    setLoadingButton.click();
-    setSearchingButton.click();
+    act(() => {
+      setPokemonsButton.click();
+      setLoadingButton.click();
+      setSearchingButton.click();
+    });
+
+    expect(screen.getByTestId('pokemons-count')).toHaveTextContent('1');
+    expect(screen.getByTestId('loading')).toHaveTextContent('true');
+    expect(screen.getByTestId('searching')).toHaveTextContent('true');
   });
 
   it('should handle empty pokemons array', () => {
@@ -151,7 +169,9 @@ describe('PokemonContext', () => {
     const setPokemonsButton = screen.getByTestId('set-pokemons');
     
     // Set to empty array
-    setPokemonsButton.click();
+    act(() => {
+      setPokemonsButton.click();
+    });
         
     // The test component always sets one pokemon, so we need to test differently
     // Let's create a component that can set empty array
@@ -177,5 +197,9 @@ describe('PokemonContext', () => {
       </PokemonProvider>
     );
 
+    const setEmptyButton = screen.getByTestId('set-empty-pokemons');
+    act(() => {
+      setEmptyButton.click();
+    });
   });
 });
