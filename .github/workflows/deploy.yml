@@ -160,7 +160,7 @@ jobs:
         FIREBASE_CLI_PREVIEWS: hostingchannels
 
     - name: Create GitHub Deployment
-      uses: peter-evans/create-deployment@v3
+      uses: altinukshini/deployment-action@v1.2.6
       with:
         token: '${{ secrets.GITHUB_TOKEN }}'
         environment: production
