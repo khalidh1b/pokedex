@@ -167,4 +167,3 @@ jobs:
         transient_environment: false
         auto_merge: false
         description: Deploying Pokedex
-        required_contexts: []
