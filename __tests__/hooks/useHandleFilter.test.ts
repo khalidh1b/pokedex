@@ -4,7 +4,7 @@ import { usePokemonContext } from '@/hooks/usePokemonContext';
 import useFetchPokemon from '@/hooks/useFetchPokemon';
 
 // Mock the dependencies
-jest.mock('@/context/pokemonContext');
+jest.mock('@/hooks/usePokemonContext');
 jest.mock('@/hooks/useFetchPokemon');
 
 const mockUsePokemonContext = usePokemonContext as jest.Mock;
