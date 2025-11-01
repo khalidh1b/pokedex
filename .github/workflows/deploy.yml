@@ -162,9 +162,9 @@ jobs:
     - name: Create GitHub Deployment
       uses: actions/create-deployment@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: '${{ secrets.GITHUB_TOKEN }}'
         environment: production
         transient_environment: false
         auto_merge: false
-        description: "Deploying Pokedex frontend"
+        description: Deploying Pokedex
         required_contexts: []
