@@ -6,9 +6,9 @@ import useHandleSorting from '@/hooks/useHandleSorting';
 import { usePokemonContext } from '@/hooks/usePokemonContext';
 
 jest.mock('@/hooks/useSearchPokemon');
-jest.mock('@/utils/handleThemeToggle');
+jest.mock('@/hooks/useThemeToggle');
 jest.mock('@/hooks/useHandleSorting');
-jest.mock('@/context/pokemonContext');
+jest.mock('@/hooks/usePokemonContext');
 
 describe('Header', () => {
   const mockUseSearchPokemon = useSearchPokemon as jest.Mock;
