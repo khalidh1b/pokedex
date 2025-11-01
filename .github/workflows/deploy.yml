@@ -162,7 +162,7 @@ jobs:
     - name: Create GitHub Deployment
       uses: altinukshini/deployment-action@v1.2.6
       with:
-        token: '${{ secrets.PAT }}'
+        token: '${{ secrets.GITHUB_TOKEN }}'
         environment: production
         transient_environment: false
         auto_merge: false
