@@ -158,3 +158,13 @@ jobs:
         projectId: poketdx
       env:
         FIREBASE_CLI_PREVIEWS: hostingchannels
+
+    - name: Create GitHub Deployment
+      uses: actions/create-deployment@v1
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: production
+          transient_environment: false
+          auto_merge: false
+          description: "Deploying Pokedex frontend"
+          required_contexts: []
