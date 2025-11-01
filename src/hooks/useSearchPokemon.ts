@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast';
-import { usePokemonContext } from "@/context/pokemonContext";
+import { usePokemonContext } from "@/hooks/usePokemonContext";
 
 export const useSearchPokemon = () => {
     const { setPokemons, setSearching } = usePokemonContext();
@@ -32,6 +32,15 @@ export const useSearchPokemon = () => {
     return { handleSearch };
 };
 
+interface Pokemon {
+    name: string
+    url: string
+};
+
+interface PokemonLists {
+    pokemon: object
+    slot: number
+};
 
 const searchPokemonApi = async (query: string) => {
     if(!query) return;
@@ -50,12 +59,12 @@ const searchPokemonApi = async (query: string) => {
             const typeResp = await fetch(typeAPI);
             if(typeResp.ok) {
                 const typeData = await typeResp.json();
-                const pokemonList = typeData.pokemon.map((p: any) => p.pokemon);
+                const pokemonList = typeData.pokemon.map((p: PokemonLists) => p.pokemon);
                 // console.log(pokemonList);
                 
                 const detailedPokemon = await Promise.all(
-                    pokemonList.slice(0, 5).map(async (p: any) => {
-                        const res = await fetch(p.url);
+                    pokemonList.slice(0, 5).map(async (p: Pokemon) => {
+                        const res = await fetch(p?.url);
                         const data = await res.json();
                         return [data];
                         // console.log('res', data)
@@ -68,6 +77,7 @@ const searchPokemonApi = async (query: string) => {
         } 
     } catch (error) {
         // console.log("Error during API search:", error);
-        toast.error('Error during API search, please try again!')
+        const err = error as Error;
+        toast.error(err.message || 'Error during API search, please try again!')
     }
 };

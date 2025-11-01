@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const handleThemeToggle = () => {
+const useThemeToggle = () => {
     const [theme, setTheme] = useState<boolean>(() => {
         return localStorage.getItem("poketex-theme") === "dark";
     });
@@ -19,4 +19,4 @@ const handleThemeToggle = () => {
     return { handleThemeChange, theme };
 };
 
-export default handleThemeToggle;
+export default useThemeToggle;

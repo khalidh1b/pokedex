@@ -7,14 +7,14 @@ import { Loader, Search } from 'lucide-react';
 import { useSearchPokemon } from '@/hooks/useSearchPokemon';
 import React, { useState } from 'react';
 import { Theme } from '@/components/ui/theme';
-import handleThemeToggle from '@/utils/handleThemeToggle';
+import useThemeToggle from '@/hooks/useThemeToggle';
 import useHandleSorting from '@/hooks/useHandleSorting';
-import { usePokemonContext } from '@/context/pokemonContext';
+import { usePokemonContext } from '@/hooks/usePokemonContext';
 
 export const Header = () => {
     const { handleSearch } = useSearchPokemon();
     const [searchQuery, setSearchQuery] = useState('');
-    const { handleThemeChange, theme } = handleThemeToggle();
+    const { handleThemeChange, theme } = useThemeToggle();
     const { sortBy, setSortBy } = useHandleSorting();
     const { searching } = usePokemonContext();
     
@@ -32,10 +32,10 @@ export const Header = () => {
             </div>
             <div className='relative mt-7'>
                 <form onSubmit={pokemonSearch}>
-                    <Search className='absolute left-3 top-2.5 text-[#416EDF]'/>
+                    <Search className='absolute left-3 top-2.5 text-gray-800'/>
                     <Input
                         type="text" 
-                        className="w-full py-3 px-2 rounded-lg focus:outline-[#416EDF] shadow-md placeholder:text-[#416EDF] drop-shadow-xl pl-12 text-[#416EDF]" 
+                        className="w-full py-3 px-2 rounded-lg focus:outline-[#2C5282] shadow-md placeholder:text-gray-800 drop-shadow-xl pl-12 text-gray-800" 
                         placeholder='Pokemon name, number or type'
                         style={{ boxShadow: '0 -3px 6px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1)'}}
                         onchange={(e) => setSearchQuery(e.target.value)}
@@ -46,7 +46,7 @@ export const Header = () => {
                     : <Button 
                         content='Search' 
                         type='submit' 
-                        className='bg-[#FFCE31] absolute top-1.5 right-2 text-[#416EDF] px-10 rounded-md cursor-pointer font-medium text-sm py-2' 
+                        className='bg-[#FFCE31] absolute top-1.5 right-2 text-black px-10 rounded-md cursor-pointer font-medium text-sm py-2' 
                         onclick={() => pokemonSearch}
                     /> 
                     }

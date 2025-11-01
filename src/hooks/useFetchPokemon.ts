@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-import { usePokemonContext } from "@/context/pokemonContext";
+import { usePokemonContext } from "@/hooks/usePokemonContext";
 import { toast } from "react-hot-toast";
 
 const useFetchPokemon = () => {

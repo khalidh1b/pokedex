@@ -1,9 +1,17 @@
 import useHandleFilter from '@/hooks/useHandleFilter';
+import { TypeCheckboxesProp } from '@/types/ui-components';
 import { FilterIcon, PanelRightCloseIcon } from 'lucide-react';
 import React from 'react';
 
 export const Filter = () => {
-    const { filterOpen, filterPokemons, filterTypes, handleCheckboxChange, resetFilter, setFilterOpen } = useHandleFilter();
+    const { 
+        filterOpen, 
+        filterPokemons, 
+        filterTypes, 
+        handleCheckboxChange, 
+        resetFilter, 
+        setFilterOpen
+     } = useHandleFilter();
 
     const handleFilterPokemons = () => {
         filterPokemons(filterTypes);
@@ -38,17 +46,12 @@ export const Filter = () => {
                     onChange={handleCheckboxChange}
                 />
                 <div className='flex absolute gap-10 ml-4 bottom-7 justify-center'>
-                    <button className='py-1.5 cursor-pointer font-medium border-1 text-[#416EDF] border-[#416EDF] px-3 rounded-md' onClick={handleResetFilter}>Reset Filters</button>
-                    <button className='bg-[#C9D2EA] cursor-pointer py-1.5 font-medium text-[#416EDF] px-3 rounded-md' onClick={handleFilterPokemons}>Apply Filter</button>
+                    <button className='py-1.5 cursor-pointer font-medium border-1 text-[#2C5282] border-[#2C5282] px-3 rounded-md' onClick={handleResetFilter}>Reset Filters</button>
+                    <button className='bg-[#C9D2EA] cursor-pointer py-1.5 font-medium text-black px-3 rounded-md' onClick={handleFilterPokemons}>Apply Filter</button>
                 </div>
             </div>
         </div>
     )
-};
-
-interface TypeCheckboxesProp {
-    filterTypes: string[];
-    onChange: (string: any) => void;
 };
 
 const TypeCheckboxes: React.FC<TypeCheckboxesProp> = ({ filterTypes, onChange }) => {
@@ -60,22 +63,22 @@ const TypeCheckboxes: React.FC<TypeCheckboxesProp> = ({ filterTypes, onChange })
     const handleCheckboxChange = (
         type: string
     ): React.ChangeEventHandler<HTMLInputElement> => {
-        return (_e) => {
+        return () => {
             onChange(type.toLowerCase())
         }
     };
 
     return (
         <div className='grid grid-cols-2 justify-between px-3 dark:text-white text-[#212121] text-base font-medium'>
-            {pokemonTypes.map((type, index) => (
-                <div key={index} className='flex gap-2 mb-2 items-centers'>
+            {pokemonTypes.map((type) => (
+                <label key={type} className='flex gap-2 mb-2 items-centers'>
                     <input 
                         type="checkbox"
                         checked={filterTypes.includes(type.toLowerCase())}
                         onChange={handleCheckboxChange(type)}
                     />
                     <span>{type}</span>
-                </div>
+                </label>
             ))}
         </div>
     )
