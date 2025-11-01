@@ -5,7 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 // Mock the dependencies
-jest.mock('@/context/pokemonContext');
+jest.mock('@/hooks/usePokemonContext');
 jest.mock('axios');
 jest.mock('react-hot-toast');
 
