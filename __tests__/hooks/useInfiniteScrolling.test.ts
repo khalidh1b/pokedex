@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import toast from 'react-hot-toast';
 
 // 🧩 Mock dependencies
-jest.mock('@/context/pokemonContext');
+jest.mock('@/hooks/usePokemonContext');
 jest.mock('react-intersection-observer');
 jest.mock('react-hot-toast');
 
