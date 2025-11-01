@@ -14,10 +14,11 @@ dist-ssr
 Ads.txt
 .git
 .firebase
-.github
 SETUP.md
 .gitignore
-
+*.yml
+.yml
+.github/workflows/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
