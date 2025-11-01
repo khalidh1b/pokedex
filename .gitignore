@@ -14,6 +14,7 @@ dist-ssr
 Ads.txt
 .git
 .firebase
+SETUP.md
 
 # Editor directories and files
 .vscode/*
