@@ -102,8 +102,6 @@ For any questions or suggestions, feel free to reach out:
 ```bash
 📧 Email: [mdkhalidhossen10@gmail.com]
 
-🐦 Twitter: https://x.com/khalidhusseinx
+🐦 Twitter: https://x.com/khalidh1b
 
 Made with ❤️ by Khalid
-
-```"Trigger deploy" 
