@@ -16,7 +16,9 @@ Ads.txt
 .firebase
 SETUP.md
 .gitignore
-
+*.yml
+.yml
+.github/workflows/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
